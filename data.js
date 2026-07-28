@@ -26,6 +26,5 @@ const DATA_POHON = [
     tinggi_perkiraan: "7 meter",
     deskripsi: "Alpukat merupakan pohon buah tahunan yang memiliki batang berkayu dengan tajuk rimbun dan daun berbentuk lonjong berwarna hijau mengilap. Bunganya berukuran kecil berwarna hijau kekuningan, sedangkan buahnya berbentuk bulat hingga lonjong dengan kulit berwarna hijau atau ungu kehitaman saat matang. Tanaman ini tumbuh baik di daerah dataran rendah hingga dataran tinggi dengan drainase tanah yang baik.",
     manfaat: ["Buah alpukat kaya akan lemak tak jenuh, vitamin A, C, E, K, serta kalium yang bermanfaat bagi kesehatan jantung dan tubuh. Daunnya dapat dimanfaatkan sebagai bahan pengobatan tradisional, sementara pohonnya berfungsi sebagai tanaman peneduh, penghijauan, penyerap karbon, serta memiliki nilai ekonomi tinggi sebagai komoditas hortikultura."],
-    fakta_menarik: "Akar gantung beringin lama-kelamaan bisa menebal dan menyerupai batang tambahan."
   }
 ];
