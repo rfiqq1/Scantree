@@ -1,0 +1,311 @@
+/* =========================================================
+   SCAN TREE — Katalog Spesimen Digital
+   Palet: hijau lumut tua, kertas usang, kuning pinus (amber)
+   Tipografi: Fraunces (display) + Source Serif 4 (body)
+              + IBM Plex Mono (kode katalog / data)
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --ink:        #1F2E22;
+  --paper:      #EFE6D3;
+  --paper-alt:  #E4D9C0;
+  --moss:       #3F5B41;
+  --moss-dark:  #28381E;
+  --bark:       #6B4226;
+  --amber:      #C98A2C;
+  --sage:       #B7C4A6;
+  --line:       rgba(31,46,34,0.25);
+
+  --display: 'Fraunces', serif;
+  --body: 'Source Serif 4', serif;
+  --mono: 'IBM Plex Mono', monospace;
+}
+
+*{ box-sizing: border-box; }
+
+html,body{
+  margin:0; padding:0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+body{
+  background-image:
+    radial-gradient(rgba(31,46,34,0.035) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+a{ color: inherit; text-decoration: none; }
+img,svg{ display:block; max-width:100%; }
+
+/* ---------- Header ---------- */
+.site-header{
+  display:flex; align-items:center; justify-content:space-between;
+  gap: 16px;
+  padding: 22px clamp(16px, 5vw, 48px);
+  border-bottom: 2px solid var(--ink);
+  background: var(--paper);
+  position: sticky; top:0; z-index: 20;
+}
+.brand{ display:flex; align-items:center; gap:12px; }
+.brand-mark{ width:34px; height:34px; flex-shrink:0; }
+.brand-text .eyebrow{
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--moss);
+  display:block;
+}
+.brand-text h1{
+  margin:0;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+.header-count{
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  padding: 6px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* ---------- Hero ---------- */
+.hero{
+  padding: clamp(24px,5vw,44px) clamp(16px,5vw,48px) 16px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.hero h2{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(26px, 4vw, 40px);
+  line-height: 1.05;
+  margin: 0;
+  max-width: 20ch;
+}
+
+.search-row{
+  display:flex; gap:10px; margin-top: 20px; max-width: 460px;
+}
+.search-row input{
+  flex:1;
+  font-family: var(--body);
+  font-size: 15px;
+  padding: 11px 14px;
+  border: 1.5px solid var(--ink);
+  background: var(--paper-alt);
+  color: var(--ink);
+  border-radius: 4px;
+}
+.search-row input:focus{ outline: 3px solid var(--amber); outline-offset: 1px; }
+
+/* ---------- Catalog grid ---------- */
+.catalog{
+  max-width: 1180px;
+  margin: 10px auto 80px;
+  padding: 0 clamp(16px,5vw,48px);
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+  gap: 22px;
+}
+
+.spec-card{
+  position: relative;
+  background: var(--paper-alt);
+  border: 1.5px solid var(--ink);
+  border-radius: 3px;
+  padding: 0;
+  transition: transform .15s ease, box-shadow .15s ease;
+  overflow: hidden;
+}
+.spec-card:hover{
+  transform: translateY(-3px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+.spec-card .perf{
+  height: 10px;
+  background-image: radial-gradient(circle, var(--paper) 2.2px, transparent 2.6px);
+  background-size: 14px 14px;
+  background-position: center;
+  border-bottom: 1.5px dashed var(--line);
+}
+.spec-card-body{ padding: 18px 18px 20px; }
+.spec-card .code{
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--moss);
+  letter-spacing: 0.08em;
+}
+.spec-card .icon-wrap{
+  width: 46px; height:46px;
+  margin: 10px 0 12px;
+  color: var(--moss);
+}
+.spec-card h3{
+  font-family: var(--display);
+  font-size: 19px;
+  font-weight: 600;
+  margin: 0 0 2px;
+}
+.spec-card .sci{
+  font-style: italic;
+  color: var(--bark);
+  font-size: 13.5px;
+  margin: 0;
+}
+.spec-card .go{
+  margin-top: 14px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--amber);
+  display:flex; align-items:center; gap:6px;
+}
+
+.empty-state{
+  grid-column: 1/-1;
+  text-align:center;
+  padding: 60px 20px;
+  color: var(--moss-dark);
+  font-family: var(--mono);
+}
+
+/* ---------- Detail (specimen sheet) ---------- */
+.sheet-wrap{
+  max-width: 900px;
+  margin: 40px auto 90px;
+  padding: 0 clamp(16px,5vw,48px);
+}
+.back-link{
+  font-family: var(--mono);
+  font-size: 13px;
+  display:inline-flex; align-items:center; gap:8px;
+  margin-bottom: 20px;
+  color: var(--moss-dark);
+}
+.back-link:hover{ color: var(--amber); }
+
+.sheet{
+  border: 2px solid var(--ink);
+  background: var(--paper-alt);
+  border-radius: 4px;
+  overflow:hidden;
+}
+.sheet-top{
+  display:grid;
+  grid-template-columns: 200px 1fr;
+  gap: 0;
+  border-bottom: 1.5px dashed var(--line);
+}
+@media (max-width:560px){ .sheet-top{ grid-template-columns: 1fr; } }
+
+.sheet-illustration{
+  background: var(--moss-dark);
+  display:flex; align-items:center; justify-content:center;
+  padding: 30px;
+}
+.sheet-illustration svg{ width:100%; height:auto; max-width:150px; color: var(--sage); }
+
+.sheet-heading{ padding: 26px 26px 22px; }
+.sheet-heading .code{
+  font-family: var(--mono); font-size:12px; color: var(--moss);
+  letter-spacing:0.08em;
+}
+.sheet-heading h2{
+  font-family: var(--display);
+  font-size: clamp(24px,4vw,32px);
+  margin: 6px 0 2px;
+}
+.sheet-heading .sci{
+  font-style: italic; color: var(--bark); font-size: 16px; margin:0 0 6px;
+}
+.sheet-heading .fam{
+  font-family: var(--mono); font-size: 12px; color: var(--ink); opacity: .7;
+}
+
+.sheet-body{ padding: 22px 26px 6px; }
+.sheet-body p.desc{ font-size:16.5px; color: var(--ink); margin:0; }
+
+.sheet-section{ padding: 20px 26px; }
+.sheet-section h4{
+  font-family: var(--mono); font-size: 11.5px; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--moss); margin: 0 0 12px;
+}
+.benefit-list{ list-style:none; margin:0; padding:0; display:grid; gap:8px; }
+.benefit-list li{
+  display:flex; gap:10px; align-items:flex-start; font-size:15.5px;
+}
+.benefit-list li::before{
+  content:"◆"; color: var(--amber); font-size: 10px; margin-top: 6px;
+}
+.fun-fact{
+  background: var(--sage);
+  border-left: 4px solid var(--moss-dark);
+  padding: 14px 18px;
+  font-size: 15px;
+  border-radius: 2px;
+}
+
+/* QR stub */
+.qr-stub{
+  display:flex; flex-direction: column; align-items:center; gap:8px;
+  padding: 24px 26px 30px;
+  border-top: 1.5px dashed var(--line);
+}
+.qr-stub .qr-box{
+  background: #fff; padding: 10px; border: 1.5px solid var(--ink); border-radius: 3px;
+}
+.qr-stub .qr-code-label{
+  font-family: var(--mono); font-size: 11px; color: var(--moss); letter-spacing:0.06em;
+}
+
+.not-found{
+  text-align:center; padding: 80px 20px; font-family: var(--mono);
+}
+
+/* ---------- Print page ---------- */
+.print-toolbar{
+  max-width: 1180px; margin: 0 auto; padding: 18px clamp(16px,5vw,48px);
+  display:flex; gap:12px; align-items:center; justify-content:flex-end;
+  flex-wrap: wrap;
+}
+.btn{
+  font-family: var(--mono); font-size: 13px;
+  background: var(--ink); color: var(--paper);
+  border: none; padding: 11px 18px; border-radius: 4px; cursor:pointer;
+}
+.btn:hover{ background: var(--moss-dark); }
+.print-grid{
+  max-width: 1180px; margin: 0 auto 60px; padding: 0 clamp(16px,5vw,48px);
+  display:grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap: 18px;
+}
+.print-tag{
+  border: 1.5px dashed var(--ink);
+  padding: 14px; text-align:center; border-radius: 4px;
+  background:#fff;
+}
+.print-tag .qr-box{ display:flex; justify-content:center; margin-bottom: 8px; }
+.print-tag .name{ font-family: var(--display); font-weight:600; font-size: 14px; }
+.print-tag .code{ font-family: var(--mono); font-size: 10.5px; color: var(--moss); }
+
+@media print{
+  .site-header, .print-toolbar, .hero{ display:none; }
+  body{ background:#fff; }
+  .print-tag{ break-inside: avoid; }
+}
+
+footer.site-footer{
+  padding: 24px clamp(16px,5vw,48px) 50px;
+  font-family: var(--mono); font-size: 12px;
+  color: var(--moss-dark); opacity: 0.75;
+  max-width: 1180px; margin: 0 auto;
+}

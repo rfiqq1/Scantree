@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scan Tree — Cetak Barcode</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <div class="brand-mark" id="brandMark"></div>
+    <div class="brand-text">
+      <span class="eyebrow">Digitalisasi Informasi Pohon</span>
+      <h1>Scan Tree</h1>
+    </div>
+  </div>
+</header>
+
+<div class="print-toolbar">
+  <button class="btn" onclick="window.print()">🖨️ Cetak halaman ini</button>
+</div>
+
+<div class="print-grid" id="printGrid"></div>
+
+<script src="icons.js"></script>
+<script src="data.js"></script>
+<script>
+  document.getElementById('brandMark').innerHTML = BRAND_MARK;
+  const grid = document.getElementById('printGrid');
+
+  const baseUrl = window.location.href.replace(/cetak-barcode\.html.*$/, '');
+
+  DATA_POHON.forEach(p => {
+    const tag = document.createElement('div');
+    tag.className = 'print-tag';
+    const qrId = `qr-${p.id}`;
+    tag.innerHTML = `
+      <div class="qr-box" id="${qrId}"></div>
+      <div class="name">${p.nama_lokal}</div>
+      <div class="code">No. ${p.id} · ${p.nama_ilmiah}</div>
+    `;
+    grid.appendChild(tag);
+
+    new QRCode(document.getElementById(qrId), {
+      text: `${baseUrl}pohon.html?id=${encodeURIComponent(p.id)}`,
+      width: 90,
+      height: 90,
+      colorDark: "#1F2E22",
+      colorLight: "#ffffff"
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scan Tree — Katalog Pohon</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <div class="brand-mark" id="brandMark"></div>
+    <div class="brand-text">
+      <span class="eyebrow">Digitalisasi Informasi Pohon</span>
+      <h1>Scan Tree</h1>
+    </div>
+  </div>
+  <div class="header-count" id="headerCount">— spesimen</div>
+</header>
+
+<section class="hero">
+  <h2>Katalog Pohon</h2>
+  <div class="search-row">
+    <input type="text" id="searchInput" placeholder="Cari nama pohon…" autocomplete="off">
+  </div>
+</section>
+
+<main class="catalog" id="catalogGrid"></main>
+
+<footer class="site-footer">
+  Scan Tree · <a href="cetak-barcode.html" style="text-decoration:underline;">Cetak barcode</a>
+</footer>
+
+<script src="icons.js"></script>
+<script src="data.js"></script>
+<script>
+  document.getElementById('brandMark').innerHTML = BRAND_MARK;
+
+  const grid = document.getElementById('catalogGrid');
+  const countEl = document.getElementById('headerCount');
+  const searchInput = document.getElementById('searchInput');
+
+  function renderCatalog(list){
+    grid.innerHTML = '';
+    if(list.length === 0){
+      grid.innerHTML = `<div class="empty-state">Tidak ada pohon yang cocok dengan pencarian.</div>`;
+      return;
+    }
+    list.forEach(p => {
+      const card = document.createElement('a');
+      card.href = `pohon.html?id=${encodeURIComponent(p.id)}`;
+      card.className = 'spec-card';
+      card.innerHTML = `
+        <div class="perf"></div>
+        <div class="spec-card-body">
+          <span class="code">No. ${p.id}</span>
+          <div class="icon-wrap">${getIcon(p.icon)}</div>
+          <h3>${p.nama_lokal}</h3>
+          <p class="sci">${p.nama_ilmiah}</p>
+          <div class="go">Lihat detail →</div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function updateCount(n){
+    countEl.textContent = `${n} spesimen`;
+  }
+
+  renderCatalog(DATA_POHON);
+  updateCount(DATA_POHON.length);
+
+  searchInput.addEventListener('input', (e) => {
+    const q = e.target.value.trim().toLowerCase();
+    const filtered = DATA_POHON.filter(p =>
+      p.nama_lokal.toLowerCase().includes(q) ||
+      p.nama_ilmiah.toLowerCase().includes(q) ||
+      p.id.toLowerCase().includes(q)
+    );
+    renderCatalog(filtered);
+    updateCount(filtered.length);
+  });
+</script>
+</body>
+</html>

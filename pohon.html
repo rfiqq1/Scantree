@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scan Tree — Detail Pohon</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <div class="brand-mark" id="brandMark"></div>
+    <div class="brand-text">
+      <span class="eyebrow">Digitalisasi Informasi Pohon</span>
+      <h1>Scan Tree</h1>
+    </div>
+  </div>
+</header>
+
+<div class="sheet-wrap">
+  <a class="back-link" href="index.html">← Kembali ke katalog</a>
+  <div id="sheetContainer"></div>
+</div>
+
+<footer class="site-footer">Scan Tree</footer>
+
+<script src="icons.js"></script>
+<script src="data.js"></script>
+<script>
+  document.getElementById('brandMark').innerHTML = BRAND_MARK;
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  const pohon = DATA_POHON.find(p => p.id === id);
+  const container = document.getElementById('sheetContainer');
+
+  if(!pohon){
+    container.innerHTML = `
+      <div class="sheet">
+        <div class="not-found">
+          <p style="font-size:16px;color:#1F2E22;">Pohon dengan kode <b>${id ? id : '(tidak ada)'}</b> tidak ditemukan.</p>
+          <p><a href="index.html" style="text-decoration:underline;">Lihat semua pohon di katalog →</a></p>
+        </div>
+      </div>
+    `;
+  } else {
+    document.title = `Scan Tree — ${pohon.nama_lokal}`;
+
+    const manfaatList = normalizeList(pohon.manfaat);
+    const faktaSection = pohon.fakta_menarik ? `
+        <div class="sheet-section">
+          <h4>Fakta menarik</h4>
+          <div class="fun-fact">${pohon.fakta_menarik}</div>
+        </div>` : '';
+
+    container.innerHTML = `
+      <div class="sheet">
+        <div class="sheet-top">
+          <div class="sheet-illustration">${SHEET_ILLUSTRATION}</div>
+          <div class="sheet-heading">
+            <span class="code">No. ${pohon.id}</span>
+            <h2>${pohon.nama_lokal}</h2>
+            <p class="sci">${pohon.nama_ilmiah}</p>
+            <span class="fam">${pohon.famili}${pohon.tinggi_perkiraan ? ' · Tinggi ' + pohon.tinggi_perkiraan : ''}</span>
+          </div>
+        </div>
+
+        <div class="sheet-body">
+          <p class="desc">${pohon.deskripsi}</p>
+        </div>
+
+        <div class="sheet-section">
+          <h4>Manfaat</h4>
+          <ul class="benefit-list">
+            ${manfaatList.map(m => `<li>${m}</li>`).join('')}
+          </ul>
+        </div>
+
+        ${faktaSection}
+
+        <div class="qr-stub">
+          <div class="qr-box" id="qrBox"></div>
+          <span class="qr-code-label">No. ${pohon.id}</span>
+        </div>
+      </div>
+    `;
+
+    new QRCode(document.getElementById("qrBox"), {
+      text: window.location.href,
+      width: 110,
+      height: 110,
+      colorDark: "#1F2E22",
+      colorLight: "#ffffff"
+    });
+  }
+</script>
+</body>
+</html>
